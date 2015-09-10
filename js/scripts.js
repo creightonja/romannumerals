@@ -15,20 +15,32 @@ function romanFinder(num) {
     var hundred = hundreds[numbers.pop()];
     var thousand = thousands[numbers.pop()];
 
+    //Checking to see which scale of variable is undefined
+    //Changing output to mirror that.
     if (!thousand){
       if (!(hundred)) {
-        if (!(ten)) {
-          var numeral = one;
-        } else {
-          var numeral = ten + one;
-        }
-      } else {
-        var numeral = hundred + ten + one;
-      }
-    } else {
-      var numeral = thousand + hundred + ten + one;
-    }
+        if (!(ten)) { var numeral = one;
+        } else { var numeral = ten + one; }
+      } else { var numeral = hundred + ten + one; }
+    } else { var numeral = thousand + hundred + ten + one; }
 
     return numeral;
   }
-}
+};
+
+$(document).ready(function() {
+  $("form#roman").submit(function(event) {
+    var number = $("input#num").val();
+    // console.log(words);
+    var numeral = romanFinder(number);
+    $("#num").val('');
+    $(".number").empty();
+    $(".number").text(number);
+
+    $(".numeral").empty();
+    $(".numeral").text(numeral);
+
+    $(".showme").show();
+    event.preventDefault();
+  });
+});
